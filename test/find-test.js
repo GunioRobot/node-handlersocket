@@ -24,14 +24,14 @@ vows.describe('Find').addBatch({
             con.end();
           });
         },
-        'should not error' : function(err, resultList) {
+        'should not error' : function(err, results) {
           assert.isNull(err);
         },
-        'should be include 1 record' : function(err, resultList) {
-          assert.length(resultList, 1);
+        'should be include 1 record' : function(err, results) {
+          assert.length(results, 1);
         },
-        'should ' : function(err, resultList) {
-          assert.deepEqual(resultList[0], [ '1', '7369', 'SMITH' ]);
+        'should ' : function(err, results) {
+          assert.deepEqual(results[0], [ '1', '7369', 'SMITH' ]);
         }
       },
       'find some records with < operator' : {
@@ -41,15 +41,15 @@ vows.describe('Find').addBatch({
             con.end();
           });
         },
-        'should not error' : function(err, resultList) {
+        'should not error' : function(err, results) {
           assert.isNull(err);
         },
-        'should be include 2 record' : function(err, resultList) {
-          assert.length(resultList, 2);
+        'should be include 2 record' : function(err, results) {
+          assert.length(results, 2);
         },
-        'should ' : function(err, resultList) {
-          assert.deepEqual(resultList[0], [ '2', '7499', 'ALLEN' ]);
-          assert.deepEqual(resultList[1], [ '1', '7369', 'SMITH' ]);
+        'should ' : function(err, results) {
+          assert.deepEqual(results[0], [ '2', '7499', 'ALLEN' ]);
+          assert.deepEqual(results[1], [ '1', '7369', 'SMITH' ]);
         }
       }
     }

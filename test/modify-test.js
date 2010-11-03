@@ -22,10 +22,10 @@ suite.addBatch({
     topic : function() {
       find(this.callback);
     },
-    'should empty result' : function(err, resultList) {
+    'should empty result' : function(err, results) {
       con.end();
       assert.isNull(err);
-      assert.length(resultList, 0);
+      assert.length(results, 0);
     }
   }
 });
@@ -49,11 +49,11 @@ suite.addBatch({
     topic : function() {
       find(this.callback);
     },
-    'should find one record' : function(err, resultList) {
+    'should find one record' : function(err, results) {
       con.end();
       assert.isNull(err);
-      assert.length(resultList, 1);
-      assert.deepEqual(resultList[0], [ '100', '9999', 'KOICHIK' ]);
+      assert.length(results, 1);
+      assert.deepEqual(results[0], [ '100', '9999', 'KOICHIK' ]);
     }
   }
 });
@@ -77,11 +77,11 @@ suite.addBatch({
     topic : function() {
       find(this.callback);
     },
-    'should find one record' : function(err, resultList) {
+    'should find one record' : function(err, results) {
       con.end();
       assert.isNull(err);
-      assert.length(resultList, 1);
-      assert.deepEqual(resultList[0], [ '100', '9999', 'EBIYURI' ]);
+      assert.length(results, 1);
+      assert.deepEqual(results[0], [ '100', '9999', 'EBIYURI' ]);
     }
   }
 });
@@ -105,10 +105,10 @@ suite.addBatch({
     topic : function() {
       find(this.callback);
     },
-    'should find no record' : function(err, resultList) {
+    'should find no record' : function(err, results) {
       con.end();
       assert.isNull(err);
-      assert.length(resultList, 0);
+      assert.length(results, 0);
     }
   }
 });

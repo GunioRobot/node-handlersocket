@@ -65,7 +65,7 @@ Half-closes the connection.
 
 To read a records from a table using the index.
 The keys parameter is an array of index values.
-The callback gets two arguments (err, resultList).
+The callback gets two arguments (err, results).
 
 ### Index.update(op, keys, [limit, [offset]], values, callback)
 

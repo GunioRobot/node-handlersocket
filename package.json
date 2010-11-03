@@ -1,0 +1,19 @@
+{ "name" : "node-handlersocket"
+, "version" : "0.0.0"
+, "description" : "HandlerSocket client for Node.js"
+, "homepage" : "http://github.com/koichik/node-handlersocket/"
+, "author" : "Koichi Kobayashi <koichik@improvement.jp> (http://d.hatena.ne.jp/koichik/)"
+, "main" : "node-handlersocket"
+, "directories" :
+  { "lib" : "lib"
+  , "example" : "example"
+  }
+, "licenses" : [ { "type" : "MIT" } ]
+, "repositories" :
+  { "type" : "git"
+  , "url" : "http://github.com/koichik/node-handlersocket.git"
+  , "private" : "git@github.com:koichik/node-handlersocket.git"
+  , "web" : "http://github.com/koichik/node-handlersocket"
+  }
+, "engines" : { "node" : ">=0.3.0" }
+}

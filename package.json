@@ -8,7 +8,11 @@
   { "lib" : "lib"
   , "example" : "example"
   }
-, "licenses" : [ { "type" : "MIT" } ]
+, "licenses" :
+    [ { "type" : "The MIT License"
+    , "url": "http://www.opensource.org/licenses/mit-license.php"
+      }
+    ]
 , "repositories" :
   { "type" : "git"
   , "url" : "http://github.com/koichik/node-handlersocket.git"

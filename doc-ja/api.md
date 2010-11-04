@@ -1,124 +1,183 @@
 # API ドキュメント
 
-### `connect([options])` 関数
+## connect([options]) 関数
 
 * HandlerSocket サーバに接続します．
+
 * 引数
+
 ** `options` : 接続先を以下のプロパティとして持つオブジェクトです．
+
 *** `host` : 接続先のホスト名または IP アドレス．デフォルトは `'localhost'` です．
+
 *** `port` : 接続先のポート番号です．デフォルトは `9998` です．
+
 * 戻り値
+
 ** `Connection` オブジェクトを返します．
 
-### `Connection` オブジェクト
+## Connection オブジェクト
 
 * HandlerSocket への接続を表すオブジェクトで，`EventEmitter` のインスタンスです．
 
-#### `'connect'` イベント
+### 'connect' イベント
 
 * 接続が確立した時に発生するイベントです．
+
 * コールバック関数: ` function()`
 
-#### `'end'` イベント
+### 'end' イベント
 
 * 接続が相手側から切断された時に発生するイベントです．
+
 * コールバック関数: ` function()`
 
-#### `'close'` イベント
+### 'close' イベント
 
 * 接続が閉じた時に発生するイベントです．
+
 * コールバック関数: ` function(hadError)`
+
 ** 引数
+
 *** `hadError` : 接続が転送エラーでクローズされたのかどうかを示す `boolean` 値が渡されます．
 
-#### `'error'` イベント
+### 'error' イベント
 
 * エラーが発生した時に発生するイベントです．
+
 * コールバック関数: ` function(err)`
+
 ** 引数
+
 *** `err` : エラーを表す `Error` オブジェクトが渡されます．
 
-#### `openIndex(database, table, index, columns, callback)` メソッド
+### openIndex(database, table, index, columns, callback) メソッド
 
 * 接続上で使用するインデックスをオープンします．
+
 * 引数
+
 ** `database` : データベースの名前です．
+
 ** `table` : テーブルの名前です．
+
 ** `index` : インデックスの名前です．主キーの場合は `'PRIMARY'` を指定します．
+
 ** `columns` : 参照および更新するカラム名の配列です．
+
 ** `callback` : コールバック関数です．
+
 * コールバック関数 : `function(err, index)`
+
 ** 引数
+
 *** `err` : 操作が成功した場合は `null`，失敗した場合は `Error` オブジェクトが渡されます．
+
 *** `index` : オープンしたインデックスを表す `Index` オブジェクトが渡されます．
 
-#### `end()` メソッド
+### end() メソッド
 
 接続を閉じます．
 
-### `Index` オブジェクト
+## Index オブジェクト
 
 * MySQL 上のインデックスを表すオブジェクトです．
 
-#### `find(op, keys, [limit, [offset]], callback)` メソッド
+### find(op, keys, [limit, [offset]], callback) メソッド
 
 *  インデックスを使用して行を取得します．
+
 * 引数
+
 ** `op` : 演算子です．`'='`, `'>'`, `'>='`, `'<'`, `'<='` のいずれかを指定します．
+
 ** `keys` : 取得対象となるインデックスの値の配列です．
 配列の要素は `Connection.openIndex()` メソッドの引数 `index` で指定したインデックスに定義されたカラム数と同じ並び順で，
 同じか少ない数の値を指定することができます．
+
 ** `limit` : 取得する最大行数です．省略した場合は `1` となります．
+
 ** `offset` : 取得する前に読み飛ばす行数です．省略した場合は `0` となります．
+
 ** `callback` : コールバック関数です．
+
 * コールバック関数 : `function(err, results)`
+
 ** 引数
+
 *** `err` : 操作が成功した場合は `null`，失敗した場合は `Error` オブジェクトが渡されます．
+
 *** `results` : 取得した行の配列が渡されます．
 取得した行がなかった場合は空の配列です．
 複数の行を取得した場合，配列の並びは `op` が `'='`, `'>'`, `'>='` の場合は昇順，
 `'<'`, `'<='` の場合は降順となります．
 配列の各要素は `Conection.openIndex()` メソッドの引数 `columns` で指定したカラムの値の配列です．
 
-#### `Index.update(op, keys, [limit, [offset]], values, callback)`
+### Index.update(op, keys, [limit, [offset]], values, callback)
 
 * インデックスを使用して行を更新します．
+
 * 引数
+
 ** `op` : 演算子です．`'='`, `'>'`, `'>='`, `'<'`, `'<='` のいずれかを指定します．
+
 ** `keys` : 更新対象となるインデックスの値の配列です．
 配列の要素は `Connection.openIndex()` メソッドの引数 `index` で指定したインデックスに定義されたカラム数と同じ並び順で，
 同じか少ない数を指定することができます．
+
 ** `limit` : 更新する最大行数です．省略した場合は `1` となります．
+
 ** `offset` : 更新する前に読み飛ばす行数です．省略した場合は `0` となります．
+
 ** `values` : 更新するカラム値の配列です．
 配列の要素は `Connection.openIndex()` メソッドの引数 `columns` で指定したカラムと同じ数・並び順でなければなりません．
+
 ** `callback` : コールバック関数です．
+
 * コールバック関数 : `function(err, rows)`
+
 *** `err` : 操作が成功した場合は `null`，失敗した場合は `Error` オブジェクトが渡されます．
+
 *** `results` : 更新した行数が渡されます．
 
-#### `Index.insert(values, callback)`
+### Index.insert(values, callback)
 
 * インデックスを使用して行を挿入します．
+
 * 引数
+
 ** `values` : 挿入するカラム値の配列です．
 配列の要素は `Connection.openIndex()` メソッドの引数 `columns` で指定したカラムと同じ数・並び順でなければなりません．
+
 ** `callback` : コールバック関数です．
+
 * コールバック関数 : `function(err, rows)`
+
 *** `err` : 操作が成功した場合は `null`，失敗した場合は `Error` オブジェクトが渡されます．
+
 *** `results` : 更新した行数が渡されます．
 
-#### `Index.remove(op, keys, [limit, [offset]], callback)`
+### Index.remove(op, keys, [limit, [offset]], callback)
 
 * インデックスを使用して行を更新します．
+
 * 引数
+
 ** `op` : 演算子です．`'='`, `'>'`, `'>='`, `'<'`, `'<='` のいずれかを指定します．
+
 ** `keys` : 削除対象となるインデックスの値の配列です．
 配列の要素は `Connection.openIndex()` メソッドの引数 `index` で指定したインデックスに定義されたカラム数と同じ並び順で，
 同じか少ない数を指定することができます．
+
 ** `limit` : 削除する最大行数です．省略した場合は `1` となります．
+
 ** `offset` : 削除する前に読み飛ばす行数です．省略した場合は `0` となります．
+
 ** `callback` : コールバック関数です．
+
 * コールバック関数 : `function(err, rows)`
+
 *** `err` : 操作が成功した場合は `null`，失敗した場合は `Error` オブジェクトが渡されます．
+
 *** `results` : 更新した行数が渡されます．

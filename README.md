@@ -87,23 +87,23 @@ Returns a new `Connection` object.
 The options parameter is an object with `host` (default is a `'localhost'`) and/or
 `port` (default is a `9998`) properties.
 
-### event : 'connect' function()
+### event : 'connect' ()
 
 Emitted when a connection is established.
 
-### envent : 'end' function()
+### envent : 'end' ()
 
 Emitted when the other end of the stream sends a FIN packet.
 
-### event : 'error' function(err)
+### event : 'error' (err)
 
 Emitted when an error occurs.
 
-### event : 'close' function(hadError)
+### event : 'close' (hadError)
 
 Emitted once the connection is fully closed.
 
-### method : `Connection.openIndex(database, table, index, columns, callback)`
+### method : Connection.openIndex(database, table, index, columns, callback)
 
 Open an index.
 The `columns` parameter is an array of column names.

@@ -9,7 +9,6 @@ vows.describe('Connect').addBatch({
         var con = hs.connect(options);
         con.on('connect', function() {
           emitter.emit('success', con);
-          console.log('closing ' + options);
           con.end();
         });
         con.on('error', function(err) {

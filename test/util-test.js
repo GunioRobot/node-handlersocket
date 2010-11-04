@@ -2,6 +2,22 @@ var vows = require('vows'), assert = require('assert'), hs = require('../lib/nod
 
 vows.describe('Utilities').addBatch({
   'encodeField' : {
+    'undefined' : {
+      topic : function() {
+        return hs._encodeField(undefined);
+      },
+      'should be nul string' : function topic(topic) {
+        assert.equal(topic, '\0');
+      }
+    },
+    'null' : {
+      topic : function() {
+        return hs._encodeField(null);
+      },
+      'should be nul string' : function topic(topic) {
+        assert.equal(topic, '\0');
+      }
+    },
     'empty string' : {
       topic : function() {
         return hs._encodeField('');
@@ -28,6 +44,14 @@ vows.describe('Utilities').addBatch({
     }
   },
   'decodeField' : {
+    'nul string' : {
+      topic : function() {
+        return hs._decodeField('\0');
+      },
+      'should be null' : function(topic) {
+        assert.isNull(topic);
+      }
+    },
     'empty string' : {
       topic : function() {
         return hs._decodeField('');
@@ -77,18 +101,26 @@ vows.describe('Utilities').addBatch({
       'should be tab separated string' : function(topic) {
         assert.equal(topic, '1\t=\t2\t\t\t1\t0\n');
       }
+    },
+    'include null fields' : {
+      topic : function() {
+        return hs._createRequest([ '1', '=', '2', null, null, 1, 0 ]);
+      },
+      'should be tab separated string' : function(topic) {
+        assert.equal(topic, '1\t=\t2\t\0\t\0\t1\t0\n');
+      }
     }
   },
   'handleResponse' : {
     'sucess' : {
       topic : function() {
-        return hs._handleResponse(this.callback)('0\t1\n');
+        return hs._handleResponse(this.callback)('0\t1\t\t\0\n');
       },
       'should not error' : function(err, response) {
         assert.isNull(err);
       },
       'shoud have 2 fields' : function(err, response) {
-        assert.deepEqual(response, ['0', '1']);
+        assert.deepEqual(response, ['0', '1', '', null]);
       }
     },
     'error' : {

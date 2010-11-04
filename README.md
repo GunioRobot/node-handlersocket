@@ -78,69 +78,65 @@ for more information.
       });
     });
 
-* * *
-
 ## API (TODO)
 
-### `connect(options)`
+### function : `connect(options)`
 
 Open a connection.
 Returns a new `Connection` object.
 The options parameter is an object with `host` (default is a `'localhost'`) and/or
 `port` (default is a `9998`) properties.
 
-### connection event: `'connect' function()`
+### event : `'connect' function()`
 
 Emitted when a connection is established.
 
-### connection envent: `'end' function()`
+### envent : `'end' function()`
 
 Emitted when the other end of the stream sends a FIN packet.
 
-### connection event: `'error' function(err)`
+### event : `'error' function(err)`
 
 Emitted when an error occurs.
 
-### connection event: `'close' function(hadError)`
+### event : `'close' function(hadError)`
 
 Emitted once the connection is fully closed.
 
-### `Connection.openIndex(database, table, index, columns, callback)`
+### method : `Connection.openIndex(database, table, index, columns, callback)`
 
 Open an index.
 The `columns` parameter is an array of column names.
 The `callback` gets two arguments `function(err, index)`.
 
-### `Connection.end()`
+### method : `Connection.end()`
 
 Half-closes the connection.
 
-### `Index.find(op, keys, [limit, [offset]], callback)`
+### method : `Index.find(op, keys, [limit, [offset]], callback)`
 
 To read a records from a table using the index.
 The `keys` parameter is an array of index values.
 The `callback` gets two arguments `function(err, results)`.
 
-### `Index.update(op, keys, [limit, [offset]], values, callback)`
+### method : `Index.update(op, keys, [limit, [offset]], values, callback)`
 
 To update a records.
 The `keys` parameter is an array of index values.
 The `values` parameter is an array of new column values.
 The `callback` gets two arguments `function(err, rows)`.
 
-### `Index.insert(values, callback)`
+### method : `Index.insert(values, callback)`
 
 To add a records.
 The `values` parameter is an array of new column values.
 The `callback` gets two arguments `function(err, rows)`.
 
-### `Index.remove(op, keys, [limit, [offset]], callback)`
+### method : `Index.remove(op, keys, [limit, [offset]], callback)`
 
 To delete a records.
 The `keys` parameter is an array of index values.
 The `callback` gets two arguments `function(err, rows)`.
-
-* * *
 
 ## Test
 
@@ -151,6 +147,7 @@ node-handlersocket depends on [Vows](http://vowsjs.org/) for testing.
     mysql -u root -p test < sql/drop.sql
 
 ## Limitations
+
 
 
 ## License

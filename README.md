@@ -7,81 +7,152 @@ is a NoSQL plugin for MySQL.
 See [auther's blog](http://yoshinorimatsunobu.blogspot.com/2010/10/using-mysql-as-nosql-story-for.html)
 for more information.
 
+## Requirements
+
+- [Node.js](http://nodejs.org/) (> 0.3.0)
+- [HandlerSocket](https://github.com/ahiguti/HandlerSocket-Plugin-for-MySQL) (tested with v1.0.6)
+
 ## Installation
 
     npm install node-handlersocket
 
-## Tutorial
+## Examples
+
+### find (select)
 
     var hs = require('node-handlersocket');
 
     var con = hs.connect();
     con.on('connect', function() {
     con.openIndex('test', 'EMPLOYEE', 'PRIMARY', [ 'EMPLOYEE_ID', 'EMPLOYEE_NO', 'EMPLOYEE_NAME' ],
-        function(err, index) {
-            index.find('=', 1, function(err, results) {
-                console.log(results[0]);
-                    con.end();
-                });
-            });
-});
+      function(err, index) {
+        index.find('=', 1, function(err, results) {
+          console.log(results[0]);
+          con.end();
+        });
+      });
+    });
+
+### insert
+
+    var hs = require('node-handlersocket');
+
+    var con = hs.connect({port : 9999});
+    con.on('connect', function() {
+      con.openIndex('test', 'EMPLOYEE', 'PRIMARY', [ 'EMPLOYEE_ID', 'EMPLOYEE_NO',
+        'EMPLOYEE_NAME' ], function(err, index) {
+        index.insert([100, 9999, 'KOICHIK'], function(err, rows) {
+          console.log(rows);
+          con.end();
+        });
+      });
+    });
+
+### update
+
+    var hs = require('node-handlersocket');
+
+    var con = hs.connect({port : 9999});
+    con.on('connect', function() {
+      con.openIndex('test', 'EMPLOYEE', 'PRIMARY', [ 'EMPLOYEE_ID', 'EMPLOYEE_NO',
+        'EMPLOYEE_NAME' ], function(err, index) {
+        index.update('=', 100, [100, 9999, 'EBIYURI'], function(err, rows) {
+          console.log(rows);
+          con.end();
+        });
+      });
+    });
+
+### remove (delete)
+
+    var hs = require('node-handlersocket');
+
+    var con = hs.connect({port : 9999});
+    con.on('connect', function() {
+      con.openIndex('test', 'EMPLOYEE', 'PRIMARY', [ 'EMPLOYEE_ID', 'EMPLOYEE_NO',
+        'EMPLOYEE_NAME' ], function(err, index) {
+        index.update('=', 100, function(err, rows) {
+          console.log(rows);
+          con.end();
+        });
+      });
+    });
+
+* * *
 
 ## API (TODO)
 
-### connect(options)
+### `connect(options)`
 
 Open a connection.
-Returns a new Connection object.
-The options parameter is an object with 'host' (default is 'localhost') and/or
-'port' (default is 9998) properties.
+Returns a new `Connection` object.
+The options parameter is an object with `host` (default is a `'localhost'`) and/or
+`port` (default is a `9998`) properties.
 
-### connection event: 'connect'
+### connection event: `'connect' function()`
 
 Emitted when a connection is established.
 
-### connection envent: 'end'
+### connection envent: `'end' function()`
 
 Emitted when the other end of the stream sends a FIN packet.
 
-### connection event: 'close' (hadError)
-
-Emitted once the stream is fully closed.
-
-### connection event: 'error' (err)
+### connection event: `'error' function(err)`
 
 Emitted when an error occurs.
 
-### Connection.openIndex(database, table, index, columns, callback)
+### connection event: `'close' function(hadError)`
+
+Emitted once the connection is fully closed.
+
+### `Connection.openIndex(database, table, index, columns, callback)`
 
 Open an index.
-The columns parameter is an array of column names.
-The callback gets two arguments (err, index).
+The `columns` parameter is an array of column names.
+The `callback` gets two arguments `function(err, index)`.
 
-### Connection.end()
+### `Connection.end()`
 
 Half-closes the connection.
 
-### Index.find(op, keys, [limit, [offset]], callback)
+### `Index.find(op, keys, [limit, [offset]], callback)`
 
 To read a records from a table using the index.
-The keys parameter is an array of index values.
-The callback gets two arguments (err, results).
+The `keys` parameter is an array of index values.
+The `callback` gets two arguments `function(err, results)`.
 
-### Index.update(op, keys, [limit, [offset]], values, callback)
+### `Index.update(op, keys, [limit, [offset]], values, callback)`
 
 To update a records.
-The keys parameter is an array of index values.
-The values parameter is an array of new column values.
-The callback gets two arguments (err, rows).
+The `keys` parameter is an array of index values.
+The `values` parameter is an array of new column values.
+The `callback` gets two arguments `function(err, rows)`.
 
-### Index.insert(values, callback)
+### `Index.insert(values, callback)`
 
 To add a records.
-The values parameter is an array of new column values.
-The callback gets two arguments (err, rows).
+The `values` parameter is an array of new column values.
+The `callback` gets two arguments `function(err, rows)`.
 
-### Index.remove(op, keys, [limit, [offset]], callback)
+### `Index.remove(op, keys, [limit, [offset]], callback)`
 
 To delete a records.
-The keys parameter is an array of index values.
-The callback gets two arguments (err, rows).
+The `keys` parameter is an array of index values.
+The `callback` gets two arguments `function(err, rows)`.
+
+* * *
+
+## Test
+
+node-handlersocket depends on [Vows](http://vowsjs.org/) for testing.
+
+    mysql -u root -p test < sql/create.sql
+    vows test/*.js
+    mysql -u root -p test < sql/drop.sql
+
+## Limitations
+
+
+## License
+
+node-handlersocket is licensed under the [MIT license](http://www.opensource.org/licenses/mit-license.php).

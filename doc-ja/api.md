@@ -99,9 +99,8 @@ MySQL 上のインデックスを表すオブジェクトです．
     * `values` : 挿入するカラム値の配列です．
 配列の要素は `Connection.openIndex()` メソッドの引数 `columns` で指定したカラムと同じ数・並び順でなければなりません．
     * `callback` : コールバック関数です．
-* コールバック関数 : `function(err, rows)`
+* コールバック関数 : `function(err)`
     * `err` : 操作が成功した場合は `null`，失敗した場合は `Error` オブジェクトが渡されます．
-    * `results` : 更新した行数が渡されます．
 
 ### Index.update(op, keys, [limit, [offset]], values, callback)
 

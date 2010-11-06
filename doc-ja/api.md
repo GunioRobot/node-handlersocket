@@ -8,6 +8,10 @@ HandlerSocket サーバに接続します．
     * `options` (オプション) : 接続先を以下のプロパティとして持つオブジェクトです．
         * `host` : 接続先のホスト名または IP アドレス．デフォルトは `'localhost'` です．
         * `port` : 接続先のポート番号です．デフォルトは `9998` です．
+
+        **HandlerSocket のデフォルト設定では，9998 番ポートは参照のみ可能なことに注意してください．**
+        9999 番ポートは更新も可能です．
+        詳細は[HandlerSocketのインストールドキュメント](https://github.com/ahiguti/HandlerSocket-Plugin-for-MySQL/blob/master/docs-ja/installation.ja.txt)を参照してください．
 * 戻り値
     * `Connection` オブジェクトを返します．
 
@@ -87,6 +91,18 @@ MySQL 上のインデックスを表すオブジェクトです．
 `'<'`, `'<='` の場合は降順となります．
 配列の各要素は `Conection.openIndex()` メソッドの引数 `columns` で指定したカラムの値の配列です．
 
+### Index.insert(values, callback)
+
+インデックスを使用して行を挿入します．
+
+* 引数
+    * `values` : 挿入するカラム値の配列です．
+配列の要素は `Connection.openIndex()` メソッドの引数 `columns` で指定したカラムと同じ数・並び順でなければなりません．
+    * `callback` : コールバック関数です．
+* コールバック関数 : `function(err, rows)`
+    * `err` : 操作が成功した場合は `null`，失敗した場合は `Error` オブジェクトが渡されます．
+    * `results` : 更新した行数が渡されます．
+
 ### Index.update(op, keys, [limit, [offset]], values, callback)
 
 インデックスを使用して行を更新します．
@@ -99,18 +115,6 @@ MySQL 上のインデックスを表すオブジェクトです．
     * `limit` (オプション) : 更新する最大行数です．省略した場合は `1` となります．
     * `offset` (オプション) : 更新する前に読み飛ばす行数です．省略した場合は `0` となります．
     * `values` : 更新するカラム値の配列です．
-配列の要素は `Connection.openIndex()` メソッドの引数 `columns` で指定したカラムと同じ数・並び順でなければなりません．
-    * `callback` : コールバック関数です．
-* コールバック関数 : `function(err, rows)`
-    * `err` : 操作が成功した場合は `null`，失敗した場合は `Error` オブジェクトが渡されます．
-    * `results` : 更新した行数が渡されます．
-
-### Index.insert(values, callback)
-
-インデックスを使用して行を挿入します．
-
-* 引数
-    * `values` : 挿入するカラム値の配列です．
 配列の要素は `Connection.openIndex()` メソッドの引数 `columns` で指定したカラムと同じ数・並び順でなければなりません．
     * `callback` : コールバック関数です．
 * コールバック関数 : `function(err, rows)`

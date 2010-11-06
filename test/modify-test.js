@@ -18,11 +18,11 @@ function find(callback) {
 
 var suite = vows.describe('Modify')
 suite.addBatch({
-  'find before insert' : {
+  'finding before insert' : {
     topic : function() {
       find(this.callback);
     },
-    'should empty result' : function(err, results) {
+    'should pass an empty array' : function(err, results) {
       con.end();
       assert.isNull(err);
       assert.length(results, 0);
@@ -30,14 +30,14 @@ suite.addBatch({
   }
 });
 suite.addBatch({
-  'insert' : {
+  'inserting' : {
     topic : function() {
       var self = this;
       openIndex(9999, function(err, index) {
         index.insert([ '100', '9999', 'KOICHIK' ], self.callback);
       })
     },
-    'should one row inserted' : function(err, rows) {
+    'should insert one row' : function(err, rows) {
       con.end();
       assert.isNull(err);
       assert.equal(rows, 1);
@@ -45,11 +45,11 @@ suite.addBatch({
   }
 });
 suite.addBatch({
-  'find after insert' : {
+  'finding after insert' : {
     topic : function() {
       find(this.callback);
     },
-    'should find one record' : function(err, results) {
+    'should pass an array which contains one record' : function(err, results) {
       con.end();
       assert.isNull(err);
       assert.length(results, 1);
@@ -58,14 +58,14 @@ suite.addBatch({
   }
 });
 suite.addBatch({
-  'update' : {
+  'updating' : {
     topic : function() {
       var self = this;
       openIndex(9999, function(err, index) {
         index.update('=', [100], [ '100', '9999', 'EBIYURI' ], self.callback);
       })
     },
-    'should one row updated' : function(err, rows) {
+    'should update one row' : function(err, rows) {
       con.end();
       assert.isNull(err);
       assert.equal(rows, 1);
@@ -73,11 +73,11 @@ suite.addBatch({
   }
 });
 suite.addBatch({
-  'find after update' : {
+  'finding after update' : {
     topic : function() {
       find(this.callback);
     },
-    'should find one record' : function(err, results) {
+    'should pass an array which contains one record' : function(err, results) {
       con.end();
       assert.isNull(err);
       assert.length(results, 1);
@@ -86,14 +86,14 @@ suite.addBatch({
   }
 });
 suite.addBatch({
-  'delete' : {
+  'deleting' : {
     topic : function() {
       var self = this;
       openIndex(9999, function(err, index) {
         index.remove('=', [100], self.callback);
       })
     },
-    'should one row deleted' : function(err, rows) {
+    'should delete one row' : function(err, rows) {
       con.end();
       assert.isNull(err);
       assert.equal(rows, 1);
@@ -101,11 +101,11 @@ suite.addBatch({
   }
 });
 suite.addBatch({
-  'find after delete' : {
+  'finding after delete' : {
     topic : function() {
       find(this.callback);
     },
-    'should find no record' : function(err, results) {
+    'should pass an empty array' : function(err, results) {
       con.end();
       assert.isNull(err);
       assert.length(results, 0);

@@ -2,7 +2,7 @@ var vows = require('vows'), assert = require('assert'), events = require('events
     hs = require('../lib/node-handlersocket');
 
 vows.describe('Connect').addBatch({
-  'connecting to ' : {
+  'connecting' : {
     topic : function() {
       return function(options) {
         var emitter = new events.EventEmitter();
@@ -17,32 +17,32 @@ vows.describe('Connect').addBatch({
         return emitter;
       }
     },
-    'default host and port' : {
+    'with default host and port' : {
       topic : function(topic) {
         return topic();
       },
-      'connected' : function(con) {
+      'should create a new Connection object' : function(con) {
         assert.instanceOf(con, hs.Connection);
       }
     },
-    'specific host and port' : {
+    'with specific host and port' : {
       topic : function(topic) {
         return topic({
           host : '127.0.0.1',
           port : 9999
         });
       },
-      'connected' : function(con) {
+      'should create a new Connection object' : function(con) {
         assert.instanceOf(con, hs.Connection);
       }
     },
-    'illegal port' : {
+    'with illegal port' : {
       topic : function(topic) {
         return topic({
           port : 10000
         });
       },
-      'could not connect' : function(con) {
+      'should pass an Error object' : function(con) {
         assert.instanceOf(con, Error);
       }
     }

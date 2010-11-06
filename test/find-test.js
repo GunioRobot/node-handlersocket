@@ -2,11 +2,12 @@ var vows = require('vows'), assert = require('assert'), events = require('events
     hs = require('../lib/node-handlersocket');
 
 //hs._debug = true;
+var con;
 vows.describe('Find').addBatch({
   'connect =>' : {
     topic : function() {
       var emitter = new events.EventEmitter();
-      var con = hs.connect();
+      con = hs.connect();
       con.on('connect', function() {
         emitter.emit('success', con);
       });
@@ -17,39 +18,39 @@ vows.describe('Find').addBatch({
         con.openIndex('test', 'EMPLOYEE', 'PRIMARY', [ 'EMPLOYEE_ID', 'EMPLOYEE_NO',
           'EMPLOYEE_NAME' ], this.callback);
       },
-      'find a record with = operator' : {
+      'find one record with = operator' : {
         topic : function(index, con) {
           index.find('=', [ 1 ], this.callback);
-          process.nextTick(function() {
-            con.end();
-          });
         },
-        'should not error' : function(err, results) {
+        'should pass a null to error' : function(err, results) {
           assert.isNull(err);
         },
-        'should be include 1 record' : function(err, results) {
+        'should pass an array with 1 record' : function(err, results) {
           assert.length(results, 1);
         },
-        'should ' : function(err, results) {
+        'should results equal to' : function(err, results) {
           assert.deepEqual(results[0], [ '1', '7369', 'SMITH' ]);
+        },
+        'after' : function(err, index) {
+          con.end();
         }
       },
       'find some records with < operator' : {
         topic : function(index, con) {
           index.find('<', [ 3 ], 10, 0, this.callback);
-          process.nextTick(function() {
-            con.end();
-          });
         },
-        'should not error' : function(err, results) {
+        'should pass null to error' : function(err, results) {
           assert.isNull(err);
         },
-        'should be include 2 record' : function(err, results) {
+        'should pass an array with 2 records' : function(err, results) {
           assert.length(results, 2);
         },
-        'should ' : function(err, results) {
+        'should results equal to' : function(err, results) {
           assert.deepEqual(results[0], [ '2', '7499', 'ALLEN' ]);
           assert.deepEqual(results[1], [ '1', '7369', 'SMITH' ]);
+        },
+        'after' : function(err, index) {
+          con.end();
         }
       }
     }

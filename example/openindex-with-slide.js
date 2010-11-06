@@ -6,6 +6,7 @@ var indexDefs = [
   ['test', 'ADDRESS', 'PRIMARY', ['ADDRESS_ID', 'STREET']]
 ];
 
+//hs._debug = true;
 var con = hs.connect();
 con.on('connect', function() {
   asyncMap(indexDefs, function(indexDef, callback) {

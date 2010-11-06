@@ -37,10 +37,8 @@ suite.addBatch({
         index.insert([ '100', '9999', 'KOICHIK' ], self.callback);
       })
     },
-    'should insert one row' : function(err, rows) {
+    'should not be error' : function() {
       con.end();
-      assert.isNull(err);
-      assert.equal(rows, 1);
     }
   }
 });

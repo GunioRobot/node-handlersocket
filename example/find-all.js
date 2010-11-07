@@ -5,7 +5,7 @@ var con = hs.connect();
 con.on('connect', function() {
   con.openIndex('test', 'EMPLOYEE', 'PRIMARY', [ 'EMPLOYEE_ID', 'EMPLOYEE_NO',
     'EMPLOYEE_NAME' ], function(err, index) {
-    index.find('>=', 100, 100, 0, function(err, results) {
+    index.find('>=', 0, 1000, 0, function(err, results) {
       results.forEach(function(row) {
         console.log(row);
       });

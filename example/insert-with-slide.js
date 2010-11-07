@@ -13,7 +13,7 @@ con.on('connect', function() {
   con.openIndex('test', 'EMPLOYEE', 'PRIMARY', [ 'EMPLOYEE_ID', 'EMPLOYEE_NO',
     'EMPLOYEE_NAME' ], function(err, index) {
     asyncMap(insertRecords, function(rec, callback) {
-      index.insert.apply(index, [rec, callback])
+      index.insert(rec, callback);
     }, function(err, rows) {
       console.log(rows.length + ' row(s) inserted');
       con.end();

@@ -7,7 +7,7 @@ vows.describe('Utilities').addBatch({
         return hs._encodeField(undefined);
       },
       'should return encoded nul string' : function topic(topic) {
-        assert.equal(topic, '\u0001\u0040');
+        assert.equal(topic, '\u0000');
       }
     },
     'with null' : {
@@ -15,7 +15,7 @@ vows.describe('Utilities').addBatch({
         return hs._encodeField(null);
       },
       'should return encoded nul string' : function topic(topic) {
-        assert.equal(topic, '\u0001\u0040');
+        assert.equal(topic, '\u0000');
       }
     },
     'with empty string' : {
@@ -46,7 +46,7 @@ vows.describe('Utilities').addBatch({
   'decodeField' : {
     'with nul string' : {
       topic : function() {
-        return hs._decodeField('\u0001\u0040');
+        return hs._decodeField('\u0000');
       },
       'should return null' : function(topic) {
         assert.isNull(topic);
@@ -107,14 +107,14 @@ vows.describe('Utilities').addBatch({
         return hs._createRequest([ '1', '=', '2', null, null, 1, 0 ]);
       },
       'should return tab separated string with nul fields' : function(topic) {
-        assert.equal(topic, '1\t=\t2\t\u0001\u0040\t\u0001\u0040\t1\t0\n');
+        assert.equal(topic, '1\t=\t2\t\u0000\t\u0000\t1\t0\n');
       }
     }
   },
   'handleResponse' : {
     'gets sucess' : {
       topic : function() {
-        return hs._handleResponse(this.callback)('0\t1\t\t\u0001\u0040\n');
+        return hs._handleResponse(this.callback)('0\t1\t\t\u0000\n');
       },
       'should pass a null to error' : function(err, response) {
         assert.isNull(err);

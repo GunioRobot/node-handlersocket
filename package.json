@@ -1,5 +1,5 @@
 { "name" : "node-handlersocket"
-, "version" : "0.0.3pre"
+, "version" : "0.0.3"
 , "description" : "HandlerSocket client for Node.js"
 , "homepage" : "http://github.com/koichik/node-handlersocket/"
 , "author" : "Koichi Kobayashi <koichik@improvement.jp> (http://d.hatena.ne.jp/koichik/)"

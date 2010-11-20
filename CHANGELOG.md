@@ -1,5 +1,9 @@
 # Changelog
 
+-0.0.3
+    - fixed NULL value handling once more.
+    - improved error handling.
+
 -0.0.2
     - fixed NULL value handling.
     - fixed response handling for insert, update and remove.

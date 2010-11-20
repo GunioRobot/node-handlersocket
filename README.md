@@ -9,7 +9,7 @@ for more information.
 
 # Requirements
 
-- [Node.js](http://nodejs.org/) (> 0.3.0)
+- [Node.js](http://nodejs.org/) (> 0.3.0, tested with 0.3.1)
 - [HandlerSocket](https://github.com/ahiguti/HandlerSocket-Plugin-for-MySQL) (tested with v1.0.6)
 
 # Installation
@@ -84,14 +84,14 @@ for more information.
 Open a connection to HandlerSocket server.
 
 * Parameters
-    * `options` (optional) : An object with the following properties:
-        * `host` : Host name or address (default is `'localhost'`).
-        * `port` : Port number (default is `9998`).
+    * `options` (optional) : an object with the following properties:
+        * `host` : a host name or address (default is `'localhost'`).
+        * `port` : a port number (default is `9998`).
 
         **Note, the port 9998 only allows read operations, and the port 9999 allows write operations also.**
         See [HandlerSocket installation document](https://github.com/ahiguti/HandlerSocket-Plugin-for-MySQL/blob/master/docs-en/installation.en.txt) for more information.
 * Returns
-    * A new `Connection` object.
+    * a new `Connection` object.
 
 ## Object : Connection
 
@@ -116,7 +116,7 @@ Emitted once the connection is fully closed.
 
 * Callback function: ` function(hadError)`
     * Parameters
-        * `hadError` : A boolean which says if the stream was closed due to a transmission error.
+        * `hadError` : `true` if the stream was closed due to a transmission error.
 
 ### Event : 'error'
 
@@ -124,22 +124,22 @@ Emitted when an error occurs.
 
 * Callback function: ` function(err)`
     * Parameters
-        * `err` : An error that occurred.
+        * `err` : an error that occurred.
 
 ### Method : Connection.openIndex(database, table, index, columns, callback)
 
 Open an index.
 
 * Parameters
-    * `database` : A database name.
-    * `table` : A table name.
-    * `index` : An index name. If 'PRIMARY' is specified, the primary index is open.
-    * `columns` : An array of columns names.
-    * `callback` : A function to be called when the response received.
+    * `database` : a database name.
+    * `table` : a table name.
+    * `index` : an index name. If 'PRIMARY' is specified, the primary index is open.
+    * `columns` : an array of columns names.
+    * `callback` : a function to be called when the response received.
 * Callback function : `function(err, index)`
     * Parameters
-        * `err` : An `Error` object when the request failed, otherwise `null`.
-        * `index` : A new `Index` object.
+        * `err` : an `Error` object when the request failed, otherwise `null`.
+        * `index` : a new `Index` object.
 
 ### Method : Connection.end()
 
@@ -154,15 +154,15 @@ An object representing MySQL's index.
 To read a records from a table using the index.
 
 * Parameters
-    * `op` : A search operation, one of `'='`, `'>'`, `'>='`, `'<'` and `'<='`.
-    * `keys` : An array of index values.
-    * `limit` (optional) : A maximum number of records to be retrieved (default is 1).
-    * `offset` (optional) : A number of records skipped before retrieving records (default is 0)．
-    * `callback` : A function to be called when the response received.
+    * `op` : a search operation, one of `'='`, `'>'`, `'>='`, `'<'` and `'<='`.
+    * `keys` : an array of index values.
+    * `limit` (optional) : a maximum number of records to be retrieved (default is 1).
+    * `offset` (optional) : a number of records skipped before retrieving records (default is 0)．
+    * `callback` : a function to be called when the response received.
 * Callback Function : `function(err, results)`
     * Parameters
-        * `err` : An `Error` object when the request failed, otherwise `null`.
-        * `results` : An array of records.
+        * `err` : an `Error` object when the request failed, otherwise `null`.
+        * `results` : an array of records.
         Each recored is array of column values which correspond to `columns` parameter of `Connection.openIndex()`.
 
 ### Method : Index.insert(values, callback)
@@ -170,42 +170,42 @@ To read a records from a table using the index.
 To add a records.
 
 * Parametes
-    * values : An array of new column values which correspond to `columns` parameter of `Connection.openIndex()`.
-    * `callback` : A function to be called when the response received.
+    * values : an array of new column values which correspond to `columns` parameter of `Connection.openIndex()`.
+    * `callback` : a function to be called when the response received.
 * Callback Function : `function(err)`
     * Parameters
-        * `err` : An `Error` object when the request failed, otherwise `null`.
+        * `err` : an `Error` object when the request failed, otherwise `null`.
 
 ### Method : Index.update(op, keys, [ limit, [ offset ] ], values, callback)
 
 To update a records.
 
 * Parametes
-    * `op` : A search operation, one of `'='`, `'>'`, `'>='`, `'<'` and `'<='`.
-    * `keys` : An array of index values.
-    * `limit` (optional) : A maximum number of records to be retrieved (default is 1).
-    * `offset` (optional) : A number of records skipped before retrieving records (default is 0)．
-    * values : An array of new column values which correspond to `columns` parameter of `Connection.openIndex()`.
-    * `callback` : A function to be called when the response received.
+    * `op` : a search operation, one of `'='`, `'>'`, `'>='`, `'<'` and `'<='`.
+    * `keys` : an array of index values.
+    * `limit` (optional) : a maximum number of records to be retrieved (default is 1).
+    * `offset` (optional) : a number of records skipped before retrieving records (default is 0)．
+    * values : an array of new column values which correspond to `columns` parameter of `Connection.openIndex()`.
+    * `callback` : a function to be called when the response received.
 * Callback Function : `function(err, rows)`
     * Parameters
-        * `err` : An `Error` object when the request failed, otherwise `null`.
-        * `rows` : A number of updated rows.
+        * `err` : an `Error` object when the request failed, otherwise `null`.
+        * `rows` : a number of updated rows.
 
 ### Method : Index.remove(op, keys, [ limit, [ offset ] ], callback)
 
 To delete a records.
 
 * Parametes
-    * `op` : A search operation, one of `'='`, `'>'`, `'>='`, `'<'` and `'<='`.
-    * `keys` : An array of index values.
-    * `limit` (optional) : A maximum number of records to be retrieved (default is 1).
-    * `offset` (optional) : A number of records skipped before retrieving records (default is 0)．
-    * `callback` : A function to be called when the response received.
+    * `op` : a search operation, one of `'='`, `'>'`, `'>='`, `'<'` and `'<='`.
+    * `keys` : an array of index values.
+    * `limit` (optional) : a maximum number of records to be retrieved (default is 1).
+    * `offset` (optional) : a number of records skipped before retrieving records (default is 0)．
+    * `callback` : a function to be called when the response received.
 * Callback Function : `function(err, rows)`
     * Parameters
-        * `err` : An `Error` object when the request failed, otherwise `null`.
-        * `rows` : A number of deleted rows.
+        * `err` : an `Error` object when the request failed, otherwise `null`.
+        * `rows` : a number of deleted rows.
 
 # Test
 
@@ -219,6 +219,8 @@ node-handlersocket depends on [Vows](http://vowsjs.org/) for testing.
 
 The encoding of MySQL server (`default-character-set` parameter in `[mysqld]` section)
 which node-handlersocket supports is **only UTF-8**.
+
+Binary data types are not supported.
 
 # License
 
